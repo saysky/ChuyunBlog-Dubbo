@@ -1,0 +1,80 @@
+server:
+  port: 8083
+
+spring:
+  thymeleaf:
+    mode: HTML5
+    cache: false
+    prefix: classpath:/templates/
+    encoding: UTF-8
+    suffix: .html
+    check-template-location: false
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 20MB
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+
+logging:
+  file: ./logs/log.log
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure: error
+
+shiro:
+  userNativeSessionManager: true
+
+# 邮箱账号
+mail:
+  smtp:
+    host: smtp.qq.com
+    username: 847064370@qq.com
+    password: vtvhcjsacnuubdaj
+  from:
+    name: MicroBlog
+
+application:
+  version: 1.0.0
+  staticCdnUrl:
+
+
+dubbo:
+  application:
+    id: blog-web
+    name: blog-web
+    qosEnable: true
+    qosPort: 18083
+  protocol:
+    id: dubbo
+    name: dubbo
+    port: 12343
+  registry:
+    address: zookeeper://127.0.0.1:2181?backup=127.0.0.1:2182,127.0.0.1:2183
+#    address: zookeeper://127.0.0.1:2188
+    id: blog-api-registry
+  scan:
+    basePackages: com.example.blog.web.*
+management:
+  endpoint:
+    dubbo:
+      enabled: true
+    dubbo-configs:
+      enabled: true
+    dubbo-properties:
+      enabled: true
+    dubbo-references:
+      enabled: true
+    dubbo-services:
+      enabled: true
+    dubbo-shutdown:
+      enabled: true
+  health:
+    dubbo:
+      status:
+        defaults: memory
+        extras: load,threadpool
